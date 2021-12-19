@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.foodorderingapp.databinding.FragmentFirstBinding
+import com.example.foodorderingapp.model.InventoryCategory
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -14,6 +15,7 @@ import com.example.foodorderingapp.databinding.FragmentFirstBinding
 class FirstFragment : Fragment() {
 
     private var _binding: FragmentFirstBinding? = null
+    private var categoriesList: MutableList<InventoryCategory> = mutableListOf<InventoryCategory>()
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -31,6 +33,11 @@ class FirstFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        categoriesList.add(InventoryCategory("Convenience"))
+        categoriesList.add(InventoryCategory("Alcohol"))
+        categoriesList.add(InventoryCategory("Vegan"))
+        categoriesList.add(InventoryCategory("Healthy"))
+        categoriesList.add(InventoryCategory("Fast Food"))
 
         binding.buttonFirst.setOnClickListener {
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
