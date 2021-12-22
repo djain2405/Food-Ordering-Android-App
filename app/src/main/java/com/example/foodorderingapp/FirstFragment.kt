@@ -33,11 +33,6 @@ class FirstFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        categoriesList.add(InventoryCategory("Convenience"))
-        categoriesList.add(InventoryCategory("Alcohol"))
-        categoriesList.add(InventoryCategory("Vegan"))
-        categoriesList.add(InventoryCategory("Healthy"))
-        categoriesList.add(InventoryCategory("Fast Food"))
 
         binding.buttonFirst.setOnClickListener {
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
