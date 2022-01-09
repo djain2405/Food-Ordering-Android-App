@@ -7,7 +7,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodorderingapp.databinding.ItemCategoryListBinding
+import com.example.foodorderingapp.databinding.ItemPreferenceListBinding
 import com.example.foodorderingapp.model.InventoryCategory
+import com.example.foodorderingapp.model.PreferenceCategory
 import java.lang.IllegalArgumentException
 
 class HomeAdapter : ListAdapter<HomeAdapter.HomeItem, HomeAdapter.HomeViewHolder>(HomeDiffCallback) {
@@ -24,6 +26,9 @@ class HomeAdapter : ListAdapter<HomeAdapter.HomeItem, HomeAdapter.HomeViewHolder
         data class InventoryCategoryItem(
             val categoryList: List<InventoryCategory>
         ) : HomeItem(INVENTORY_CATEGORY_LIST,INVENTORY_CATEGORY_LIST)
+        data class PreferenceCategoryItem(
+            val preferenceList: List<PreferenceCategory>
+        ) : HomeItem(PREFERENCE_CATEGORY_LIST, PREFERENCE_CATEGORY_LIST)
     }
 
     sealed class HomeViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -41,23 +46,43 @@ class HomeAdapter : ListAdapter<HomeAdapter.HomeItem, HomeAdapter.HomeViewHolder
             }
 
         }
+
+        class PreferenceCategoryViewHolder(private val binding: ItemPreferenceListBinding) : HomeViewHolder(binding.root) {
+            private val preferenceAdapter by lazy {
+                PreferenceCategoryAdapter()
+            }
+            override fun bind(homeItem: HomeItem) {
+                binding.preferenceRecyclerview.apply {
+                    adapter = preferenceAdapter
+                }
+                preferenceAdapter.submitList((homeItem as HomeItem.PreferenceCategoryItem).preferenceList)
+            }
+
+        }
     }
 
     companion object {
         private const val INVENTORY_CATEGORY_LIST = 0
+        private const val PREFERENCE_CATEGORY_LIST = 1
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeAdapter.HomeViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
         return when(viewType) {
             INVENTORY_CATEGORY_LIST -> HomeViewHolder.InventoryCategoryViewHolder(
                 ItemCategoryListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-            ) else -> throw IllegalArgumentException("Unsupported viewType: $viewType")
+            )
+            PREFERENCE_CATEGORY_LIST -> HomeViewHolder.PreferenceCategoryViewHolder(
+                ItemPreferenceListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            )
+            else -> throw IllegalArgumentException("Unsupported viewType: $viewType")
         }
     }
 
-    override fun onBindViewHolder(holder: HomeAdapter.HomeViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
         val item = getItem(position)
         holder.bind(item)
     }
+
+    override fun getItemViewType(position: Int): Int = currentList[position].type
 
 }

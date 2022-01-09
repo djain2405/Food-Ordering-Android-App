@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="PreferenceButton">
+        <attr name="left_icon" format="reference"/>
+        <attr name="right_icon" format="reference"/>
+    </declare-styleable>
+</resources>

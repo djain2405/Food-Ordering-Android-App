@@ -7,7 +7,7 @@ import com.example.foodorderingapp.model.DataSource
 
 class HomeViewModel(val dataSource: DataSource) : ViewModel() {
 
-    val categoryLiveData = dataSource.getInventoryCategoryList()
+    val homeLiveData = dataSource.getHomeList()
 }
 
 class HomeViewModelFactory(private val context: Context) : ViewModelProvider.Factory {

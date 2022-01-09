@@ -57,11 +57,9 @@ class FirstFragment : Fragment() {
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         }
 
-        homeViewModel.categoryLiveData.observe(viewLifecycleOwner, {
+        homeViewModel.homeLiveData.observe(viewLifecycleOwner, {
             it.let {
-                val homeList = mutableListOf<HomeAdapter.HomeItem>()
-                homeList.add(HomeAdapter.HomeItem.InventoryCategoryItem(it))
-                homeAdapter.submitList(homeList)
+                homeAdapter.submitList(it)
             }
         })
     }
