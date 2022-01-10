@@ -18,7 +18,9 @@
             android:background="?attr/colorPrimary"
             app:popupTheme="@style/Theme.FoodOrderingApp.PopupOverlay">
 
-            <include layout="@layout/item_toolbar" />
+            <include
+                android:id="@+id/item_toolbar"
+                layout="@layout/item_toolbar" />
         </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
