@@ -10,7 +10,10 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN
 import com.example.foodorderingapp.databinding.ActivityMainBinding
+import com.example.foodorderingapp.model.AccountItem
+import com.example.foodorderingapp.ui.AccountFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,7 +29,15 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         binding.itemToolbar.profileIcon.setOnClickListener {
-            Toast.makeText(applicationContext, "Open full screen dialog", Toast.LENGTH_LONG).show()
+            val accountFragment = AccountFragment()
+            val accountItemList = setAccountList()
+            accountFragment.setAccountList(accountItemList)
+            val transaction = supportFragmentManager.beginTransaction()
+            transaction.setTransition(TRANSIT_FRAGMENT_OPEN)
+            transaction
+                .add(android.R.id.content, accountFragment)
+                .addToBackStack(null)
+                .commit()
         }
 
         val navController = findNavController(R.id.nav_host_fragment_content_main)
@@ -37,6 +48,18 @@ class MainActivity : AppCompatActivity() {
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
         }
+    }
+
+    private fun setAccountList(): List<AccountItem> {
+        val accountItemList = mutableListOf<AccountItem>()
+        accountItemList.add(AccountItem(0, "Profile", "Divya Jain"))
+        accountItemList.add(AccountItem(1, "Payment Methods", "Manage payment methods and Doordash credits"))
+        accountItemList.add(AccountItem(2, "Addresses", "2 locations"))
+        accountItemList.add(AccountItem(3, "Notifications", "Push"))
+        accountItemList.add(AccountItem(4, "Support"))
+        accountItemList.add(AccountItem(5, "FAQs"))
+        accountItemList.add(AccountItem(6, "Log Out"))
+        return accountItemList
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
