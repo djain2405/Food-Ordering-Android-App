@@ -11,6 +11,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN
+import androidx.navigation.ui.NavigationUI
 import com.example.foodorderingapp.databinding.ActivityMainBinding
 import com.example.foodorderingapp.model.AccountItem
 import com.example.foodorderingapp.ui.AccountFragment
@@ -43,6 +44,7 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
+        NavigationUI.setupWithNavController(binding.contentMain.bottomNavigationView, navController)
 
         binding.fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)

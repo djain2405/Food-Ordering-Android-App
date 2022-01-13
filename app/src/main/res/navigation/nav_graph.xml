@@ -25,4 +25,14 @@
             android:id="@+id/action_SecondFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.foodorderingapp.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" />
+    <fragment
+        android:id="@+id/ordersFragment"
+        android:name="com.example.foodorderingapp.OrdersFragment"
+        android:label="fragment_orders"
+        tools:layout="@layout/fragment_orders" />
 </navigation>
